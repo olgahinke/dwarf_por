@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "../Desktop/simus"
+        }
+    ],
+    "settings": {
+        "git.ignoreLimitWarning": true
+    }
+}
