@@ -1,2 +1,2 @@
 # dwarf_por
-All master codes
+This is the git for the masters project concerning dwarf satellite simulation using Phantom of Ramses (PoR). 
