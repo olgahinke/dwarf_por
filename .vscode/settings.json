@@ -1,4 +1,4 @@
 {
-  "python.defaultInterpreterPath": "/Users/olgahinke/venvs/masterproject/bin/python",
+  "python.defaultInterpreterPath": "/Users/olgahinke/venv/masterproject/bin/python",
   "python-envs.defaultEnvManager": "ms-python.python:system"
 }
