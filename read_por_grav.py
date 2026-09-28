@@ -71,12 +71,6 @@ def read_amr_grav(repository, mond=True, icpu=1, ordering_is_bisection=False):
         ngrid_current = int(f.read_ints(np.int32)[0])
         boxlen        = float(f.read_reals(np.float32)[0])
 
-    if ncpu != 1:
-        raise NotImplementedError(
-            f"ncpu={ncpu} -- this script only supports ncpu=1. "
-            "You need the Hilbert domain-decomposition logic for multi-CPU runs."
-        )
-
     twotondim = 2 ** ndim
     xbound = np.array([nx // 2, ny // 2, nz // 2], dtype=np.float64)
     lmax = nlevelmax
@@ -210,6 +204,32 @@ def read_amr_grav(repository, mond=True, icpu=1, ordering_is_bisection=False):
 
     return np.concatenate(rows, axis=0) if rows else np.empty((0, 13))
 
+def read_amr_grav_multicpu(repository, mond=True, ordering_is_bisection=False):
+    """
+    Read gravitational data from all CPU files in a RAMSES output directory.
+    Combines results from all amr_*.outXXXXX files.
+    
+    repository : path to output_XXXXX directory
+    mond       : True if grav files contain MOND+Newtonian blocks
+    Returns    : (N, 13) array in code units — same format as read_amr_grav
+    """
+    import glob
+    nchar     = repository.rstrip('/').split('_')[-1]
+    amr_files = sorted(glob.glob(f"{repository}/amr_{nchar}.out*"))
+    ncpu_total = len(amr_files)
+    print(f"Found {ncpu_total} CPU files")
+
+    all_data = []
+    for icpu in range(1, ncpu_total + 1):
+        print(f"  CPU {icpu}/{ncpu_total} ...", end=" ", flush=True)
+        raw = read_amr_grav(repository, mond=mond, icpu=icpu,
+                            ordering_is_bisection=ordering_is_bisection)
+        print(f"{len(raw)} cells")
+        all_data.append(raw)
+
+    if not all_data:
+        return np.empty((0, 13))
+    return np.concatenate(all_data, axis=0)
 
 def apply_units(raw, info_path):
     """
