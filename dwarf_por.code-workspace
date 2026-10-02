@@ -5,6 +5,12 @@
         },
         {
             "path": "../Desktop/simus"
+        },
+        {
+            "path": "../Desktop/psc"
+        },
+        {
+            "path": "../phasespace_corr"
         }
     ],
     "settings": {
