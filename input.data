@@ -1,0 +1,18 @@
+theta,  epsc, isoft
+0.500,  0.010,  1
+itest,ibound,ivir,pout
+0,    0,     0,   0
+nout, iene
+   1,  120
+imd, ctstep 
+100,  2
+tmax,  max_dt 
+211.9494, 0.2119
+new,  id_new 
+0, 0
+iext,  mdisk, mspher, vhalo !J95
+1,     10.,   3.4,    128.
+adisk,  bdisk,  cspher, dhalo
+6.5,	0.26,	0.7,	12.
+xcm, ycm, zcm, vxcm, vycm, vzcm
+0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000

@@ -11,6 +11,9 @@
         },
         {
             "path": "../phasespace_corr"
+        },
+        {
+            "path": "../dice"
         }
     ],
     "settings": {
